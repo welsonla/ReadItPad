@@ -36,7 +36,6 @@
 		0E6EBDB215592679008A4B7C /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6EBDA715592679008A4B7C /* FMResultSet.m */; };
 		0E6EBDB315592679008A4B7C /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6EBDA715592679008A4B7C /* FMResultSet.m */; };
 		0E6EBDB61559278A008A4B7C /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E6EBDB51559278A008A4B7C /* libsqlite3.dylib */; };
-		0E795CCB1564CC2C00CA0B74 /* aaa.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E795CCA1564CC2C00CA0B74 /* aaa.m */; };
 		0E89A39015577CF200EFB650 /* ReadItLaterAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E89A38F15577CF200EFB650 /* ReadItLaterAddition.m */; };
 		0E89A39115577CF200EFB650 /* ReadItLaterAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E89A38F15577CF200EFB650 /* ReadItLaterAddition.m */; };
 		0E89A3941557992500EFB650 /* read.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E89A3931557992500EFB650 /* read.plist */; };
@@ -97,8 +96,6 @@
 		0E6EBDA615592679008A4B7C /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		0E6EBDA715592679008A4B7C /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		0E6EBDB51559278A008A4B7C /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		0E795CC91564CC2C00CA0B74 /* aaa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aaa.h; sourceTree = "<group>"; };
-		0E795CCA1564CC2C00CA0B74 /* aaa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = aaa.m; sourceTree = "<group>"; };
 		0E89A38E15577CF200EFB650 /* ReadItLaterAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadItLaterAddition.h; sourceTree = "<group>"; };
 		0E89A38F15577CF200EFB650 /* ReadItLaterAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadItLaterAddition.m; sourceTree = "<group>"; };
 		0E89A3931557992500EFB650 /* read.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = read.plist; sourceTree = "<group>"; };
@@ -230,8 +227,6 @@
 				0E6BCA6115525AFD00EE8657 /* ReadItLaterLite.m */,
 				0E89A38E15577CF200EFB650 /* ReadItLaterAddition.h */,
 				0E89A38F15577CF200EFB650 /* ReadItLaterAddition.m */,
-				0E795CC91564CC2C00CA0B74 /* aaa.h */,
-				0E795CCA1564CC2C00CA0B74 /* aaa.m */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -400,7 +395,6 @@
 				0E6EBDAE15592679008A4B7C /* FMDatabaseQueue.m in Sources */,
 				0E6EBDB215592679008A4B7C /* FMResultSet.m in Sources */,
 				0EDA6B91155B8C70003F6820 /* MBProgressHUD.m in Sources */,
-				0E795CCB1564CC2C00CA0B74 /* aaa.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
