@@ -31,6 +31,7 @@
 
 @synthesize username;
 @synthesize password;
+@synthesize activityView;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -55,6 +56,7 @@
 - (void)dealloc{
     [username release];
     [password release];
+    [activityView release];
     [super dealloc];
 }
 
@@ -114,6 +116,13 @@
     [loginButton setCenter:CGPointMake(512, 300)];
     [loginButton.layer setCornerRadius:5];
     [self.view addSubview:loginButton];
+
+    
+    UIActivityIndicatorView *tempActivityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    [tempActivityView setFrame:CGRectMake(670, 290, 25, 25)];
+    self.activityView = tempActivityView;
+    [self.view addSubview:self.activityView];
+    [tempActivityView release];
     
     [loginButton addTarget:self action:@selector(doLogin:) forControlEvents:UIControlEventTouchUpInside];
 
@@ -145,7 +154,10 @@
         return;
     }
     
+    [activityView startAnimating];
+    
     MBProgressHUD *HUB = [[MBProgressHUD alloc] initWithView:self.view];
+    [HUB setFrame:CGRectMake(700, 300, 25, 25)];
     [self.view addSubview:HUB];
     HUB.delegate = self;
     HUB.mode = MBProgressHUDAnimationFade;
@@ -193,6 +205,8 @@
         NSLog(@"error");
     
     }
+    
+    [activityView stopAnimating];
 }
 
 

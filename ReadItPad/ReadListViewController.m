@@ -55,6 +55,7 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"] autorelease];
     }
     
+    [cell.textLabel setFont:[UIFont systemFontOfSize:14]];
     cell.textLabel.text = [[readListArray objectAtIndex:indexPath.row] objectForKey:@"title"];
     
     return cell;
