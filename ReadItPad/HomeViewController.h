@@ -17,12 +17,14 @@
 @interface HomeViewController : UIViewController<ReadItLaterDelegate,MBProgressHUDDelegate>{
     UITextField *username;
     UITextField *password;
+    MBProgressHUD *HUB ;
     UIActivityIndicatorView *activityView;
 }
 
 @property (nonatomic,retain) UITextField *username;
 @property (nonatomic,retain) UITextField *password;
-@property (nonatomic,retain)  UIActivityIndicatorView *activityView;
+@property (nonatomic,retain) MBProgressHUD *HUB ;
+@property (nonatomic,retain) UIActivityIndicatorView *activityView;
 
 - (void)doLogin:(id)sender;
 

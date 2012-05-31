@@ -31,6 +31,7 @@
 
 @synthesize username;
 @synthesize password;
+@synthesize HUB;
 @synthesize activityView;
 
 
@@ -56,6 +57,8 @@
 - (void)dealloc{
     [username release];
     [password release];
+    [HUB setDelegate:nil];
+    [HUB release];
     [activityView release];
     [super dealloc];
 }
@@ -143,13 +146,19 @@
     
     [activityView startAnimating];
     
-    MBProgressHUD *HUB = [[MBProgressHUD alloc] initWithView:self.view];
+    
+    
+    HUB = [[MBProgressHUD alloc] initWithView:self.view];
     [HUB setFrame:CGRectMake(700, 500, 25, 25)];
-    [self.view addSubview:HUB];
     HUB.delegate = self;
-    HUB.mode = MBProgressHUDAnimationFade;
+    [HUB show:YES];
+    [HUB setLabelText:@"Loading..."];
+    [HUB setDimBackground:YES];
+    HUB.mode = MBProgressHUDModeAnnularDeterminate;
+    [self.view addSubview:HUB];
     [ReadItLater authWithUsername:username.text password:password.text delegate:self];
 }
+
 
 - (BOOL)checkInput:(id)sender{
     if(username.text.length==0||password.text.length==0){
@@ -172,19 +181,20 @@
 
 - (void)readItLaterLoginFinished:(NSString *)stringResponse error:(NSString *)errorString{
     
+    [HUB setHidden:YES];
+    
     if ([stringResponse rangeOfString:@"200"].location != NSNotFound) {
-        
-        
-        
         [ReadItLater saveUserData:username.text andPassword:password.text];
         ReadListViewController *listController = [[ReadListViewController alloc] initWithNibName:nil bundle:nil];
-        
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:listController];
-        [self presentModalViewController:nav animated:YES];
+
+        [self.navigationController pushViewController:listController animated:YES];
         [listController release];
         
     }else if([stringResponse rangeOfString:@"401"].location != NSNotFound){
-       
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Authentication faild" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
         NSLog(@"Username and password do not match account");
     
     }else{

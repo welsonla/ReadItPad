@@ -23,8 +23,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+
     homeController  = [[HomeViewController alloc] initWithNibName:nil bundle:nil];
-    self.window.rootViewController = homeController;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:homeController];
+    self.window.rootViewController = nav;
+    [nav release];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

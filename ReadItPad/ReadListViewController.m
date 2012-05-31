@@ -70,7 +70,7 @@
     
 //    readListArray = [[NSMutableArray alloc] init];
     
-    
+    self.title = @"Reading List";
     readTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768) style:UITableViewStylePlain];
     [readTable setDataSource:self];
     [readTable setDelegate:self];
