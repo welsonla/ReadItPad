@@ -62,21 +62,8 @@
 
 - (void)viewDidLoad
 {
-    
-//    NSString *searchString = @"This is neat";
-//    NSString *regexString = @"(\\w*)";
-//    BOOL result= [searchString isMatchedByRegex:regexString 
-//                                                   inRange:NSMakeRange(0, [searchString length])];
-  
-
-//    NSLog(@"%@",matchString);
-//    NSLog(@"%@",[searchString isMatchedByRegex:regexString].length>0?@"YES":@"NO");
-    
-//    NSLog(@"matchString:%@",matchString);
 
     [self.view setBackgroundColor:[UIColor grayColor]];
-    
-
     
     
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(300, 150, 250, 40)];
@@ -157,7 +144,7 @@
     [activityView startAnimating];
     
     MBProgressHUD *HUB = [[MBProgressHUD alloc] initWithView:self.view];
-    [HUB setFrame:CGRectMake(700, 300, 25, 25)];
+    [HUB setFrame:CGRectMake(700, 500, 25, 25)];
     [self.view addSubview:HUB];
     HUB.delegate = self;
     HUB.mode = MBProgressHUDAnimationFade;
