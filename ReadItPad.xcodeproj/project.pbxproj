@@ -48,6 +48,7 @@
 		0ED0AF841552939900D6A66D /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED0AF831552939900D6A66D /* libicucore.dylib */; };
 		0EDA6B91155B8C70003F6820 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA6B90155B8C70003F6820 /* MBProgressHUD.m */; };
 		0EDA6B92155B8C70003F6820 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA6B90155B8C70003F6820 /* MBProgressHUD.m */; };
+		2CF21CCB1599FBB200BD4A82 /* ReadDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF21CCA1599FBB200BD4A82 /* ReadDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,8 @@
 		0ED0AF831552939900D6A66D /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		0EDA6B8F155B8C70003F6820 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		0EDA6B90155B8C70003F6820 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		2CF21CC91599FBB200BD4A82 /* ReadDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadDetailViewController.h; sourceTree = "<group>"; };
+		2CF21CCA1599FBB200BD4A82 /* ReadDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +189,8 @@
 				0E6BCA6D15525B3300EE8657 /* HomeViewController.m */,
 				0E3FDFDF1553DB4A001E4B79 /* ReadListViewController.h */,
 				0E3FDFE01553DB4A001E4B79 /* ReadListViewController.m */,
+				2CF21CC91599FBB200BD4A82 /* ReadDetailViewController.h */,
+				2CF21CCA1599FBB200BD4A82 /* ReadDetailViewController.m */,
 			);
 			path = ReadItPad;
 			sourceTree = "<group>";
@@ -395,6 +400,7 @@
 				0E6EBDAE15592679008A4B7C /* FMDatabaseQueue.m in Sources */,
 				0E6EBDB215592679008A4B7C /* FMResultSet.m in Sources */,
 				0EDA6B91155B8C70003F6820 /* MBProgressHUD.m in Sources */,
+				2CF21CCB1599FBB200BD4A82 /* ReadDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
