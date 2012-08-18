@@ -31,7 +31,6 @@
 
 @synthesize username;
 @synthesize password;
-@synthesize HUB;
 @synthesize activityView;
 
 
@@ -57,15 +56,13 @@
 - (void)dealloc{
     [username release];
     [password release];
-    [HUB setDelegate:nil];
-    [HUB release];
     [activityView release];
     [super dealloc];
 }
 
 - (void)viewDidLoad
 {
-
+    
     [self.view setBackgroundColor:[UIColor grayColor]];
     
     
@@ -88,7 +85,7 @@
     [username.layer setCornerRadius:5];
     [self.view addSubview:username];
     
-
+    
     password = [[UITextField alloc] initWithFrame:CGRectMake(300, 250, 250, 40)];
     [password.layer setCornerRadius:5];
     [password setBackgroundColor:[UIColor whiteColor]];
@@ -106,7 +103,7 @@
     [loginButton setCenter:CGPointMake(512, 300)];
     [loginButton.layer setCornerRadius:5];
     [self.view addSubview:loginButton];
-
+    
     
     UIActivityIndicatorView *tempActivityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     [tempActivityView setFrame:CGRectMake(670, 290, 25, 25)];
@@ -115,7 +112,7 @@
     [tempActivityView release];
     
     [loginButton addTarget:self action:@selector(doLogin:) forControlEvents:UIControlEventTouchUpInside];
-
+    
     
     
     [super viewDidLoad];
@@ -144,31 +141,26 @@
         return;
     }
     
-    [activityView startAnimating];
     
+    //    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //    [MBProgressHUD];
     
-    
-    HUB = [[MBProgressHUD alloc] initWithView:self.view];
-    [HUB setFrame:CGRectMake(700, 500, 25, 25)];
-    HUB.delegate = self;
-    [HUB show:YES];
-    [HUB setLabelText:@"Loading..."];
-    [HUB setDimBackground:YES];
+    HUB = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     HUB.mode = MBProgressHUDModeAnnularDeterminate;
-    [self.view addSubview:HUB];
+    HUB.labelText = @"Loading";
+    
     [ReadItLater authWithUsername:username.text password:password.text delegate:self];
 }
-
 
 - (BOOL)checkInput:(id)sender{
     if(username.text.length==0||password.text.length==0){
         
-
         
-        UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" 
-                                                        message:@"Username or Password mustn't be empty" 
-                                                       delegate:nil 
-                                              cancelButtonTitle:@"OK" 
+        
+        UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                        message:@"Username or Password mustn't be empty"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil, nil];
         
         [alter show];
@@ -181,26 +173,28 @@
 
 - (void)readItLaterLoginFinished:(NSString *)stringResponse error:(NSString *)errorString{
     
-    [HUB setHidden:YES];
-    
     if ([stringResponse rangeOfString:@"200"].location != NSNotFound) {
+        
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
+        
         [ReadItLater saveUserData:username.text andPassword:password.text];
         ReadListViewController *listController = [[ReadListViewController alloc] initWithNibName:nil bundle:nil];
-
-        [self.navigationController pushViewController:listController animated:YES];
+        
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:listController];
+        [self presentModalViewController:nav animated:YES];
         [listController release];
         
     }else if([stringResponse rangeOfString:@"401"].location != NSNotFound){
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Authentication faild" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-        [alert release];
         NSLog(@"Username and password do not match account");
-    
+        
     }else{
-    
+        
         NSLog(@"error");
-    
+        
     }
     
     [activityView stopAnimating];
@@ -208,7 +202,7 @@
 
 
 - (void)readItLaterSignupFinished:(NSString *)stringResponse error:(NSString *)errorString{
-
+    
 }
 
 - (void)readItLaterSaveFinished:(NSString *)stringResponse error:(NSString *)errorString{
