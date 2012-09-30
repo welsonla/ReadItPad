@@ -27,11 +27,37 @@
 
 - (void)viewDidLoad
 {
-    webView = [[UIWebView alloc] initWithFrame:[self.view bounds]];
+    
+    [self.view setBackgroundColor:[UIColor yellowColor]];
+    
+    webView = [[UIWebView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
+    webView.scalesPageToFit = YES;
+    webView.delegate = self;
+    [webView setBackgroundColor:[UIColor greenColor]];
     [self.view addSubview:webView];
     [super viewDidLoad];
 }
 
+- (void)loadWebPageWithString:(NSString *)str{
+    NSLog(@"urlString-------%@",str);
+    NSURL *url  = [NSURL URLWithString:str];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [webView loadRequest:request];
+
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    NSLog(@"Error");
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView{
+    NSLog(@"Start");
+}
+
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    NSLog(@"Finished");
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];

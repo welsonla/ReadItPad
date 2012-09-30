@@ -12,6 +12,7 @@
 
 @synthesize readListArray;
 @synthesize readTable;
+@synthesize readDetailController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,6 +33,7 @@
 
 - (void)readitLaterGetFinished:(NSString *)stringResponse error:(NSString *)errorString{
 
+//    NSLog(@"StringResponse----------%@",stringResponse);
     NSDictionary *dic  = [[stringResponse objectFromJSONString] objectForKey:@"list"];
     readListArray = [[NSMutableArray alloc] initWithArray:[dic allValues]];
     [readListArray setArray:[dic allValues]];
@@ -63,6 +65,21 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+//    {
+//        "item_id": "163882275",
+//        "state": "0",
+//        "time_added": "1336638269",
+//        "time_updated": "1336638269",
+//        "title": "\u91cd\u6784\uff1a\u4ee3\u7801\u5f02\u5473",
+//        "url": "http://www.google.com"
+//    }
+    NSDictionary *readDict = [readListArray objectAtIndex:indexPath.row];
+    ReadListObject *readObject = [[ReadListObject alloc] init];
+    readObject = [readObject convertToReadObject:readDict];
+   
+    readDetailController  = [[ReadDetailViewController alloc] initWithNibName:nil bundle:nil];
+    [readDetailController loadWebPageWithString:readObject.url];
+    [self.navigationController pushViewController:readDetailController animated:YES];
 }
 
 
@@ -83,6 +100,7 @@
 }
 
 - (void)dealloc{
+    [readDetailController release];
     [super dealloc];
 }
 

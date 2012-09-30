@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ReadDetailViewController : UIViewController{
+@interface ReadDetailViewController : UIViewController<UIWebViewDelegate>{
     UIWebView *webView;
 }
 
 @property(nonatomic,retain) UIWebView *webView;
+
+
+- (void)loadWebPageWithString:(NSString *)str;
 
 @end

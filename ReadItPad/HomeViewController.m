@@ -141,10 +141,6 @@
         return;
     }
     
-    
-    //    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    //    [MBProgressHUD];
-    
     HUB = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     HUB.mode = MBProgressHUDModeAnnularDeterminate;
     HUB.labelText = @"Loading";
