@@ -18,6 +18,9 @@
 
 @synthesize HUB;
 
+#pragma mark -
+#pragma mark class methods
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -39,35 +42,6 @@
     [super viewDidLoad];
 }
 
-
-//Load the content  to the web view
-- (void)loadWebPageWithString:(NSString *)str{
-    NSURL *url  = [NSURL URLWithString:str];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [webView loadRequest:request];
-
-}
-
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
-    NSLog(@"Error");
-}
-
-- (void)webViewDidStartLoad:(UIWebView *)webView{
-    
-    HUB = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    HUB.mode = MBProgressHUDModeAnnularDeterminate;
-    HUB.labelText = @"Loading";
-
-    NSLog(@"Start");
-}
-
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView{
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    });
-}
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -77,5 +51,36 @@
 {
 	return YES;
 }
+
+
+//Load the content  to the web view
+- (void)loadWebPageWithString:(NSString *)str{
+    NSURL *url  = [NSURL URLWithString:str];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+
+    [webView loadRequest:request];
+
+}
+
+
+#pragma mark -
+#pragma mark webView methods
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    NSLog(@"Error");
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView{
+    
+    HUB = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    HUB.mode = MBProgressHUDModeAnnularDeterminate;
+    HUB.labelText = @"Loading";
+    
+    [HUB hide:YES afterDelay:1.5];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+
+}
+
 
 @end

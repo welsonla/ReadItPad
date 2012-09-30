@@ -91,7 +91,7 @@
 {
     [ReadItLater getReadList:self];
     
-    self.title = @"Reading List";
+    self.title = @"Read List";
     readTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768) style:UITableViewStylePlain];
     [readTable setDataSource:self];
     [readTable setDelegate:self];

@@ -14,7 +14,7 @@
 #import "ReadListViewController.h"
 #import "MBProgressHUD.h"
 
-@interface HomeViewController : UIViewController<ReadItLaterDelegate,MBProgressHUDDelegate>{
+@interface HomeViewController : UIViewController<UITextFieldDelegate,ReadItLaterDelegate,MBProgressHUDDelegate>{
     UITextField *username;
     UITextField *password;
     MBProgressHUD *HUB ;
@@ -26,8 +26,14 @@
 @property (nonatomic,retain) MBProgressHUD *HUB ;
 @property (nonatomic,retain) UIActivityIndicatorView *activityView;
 
+- (void)startAnimation;
+
+- (void)stopAnimation;
+
 - (void)doLogin:(id)sender;
 
 - (BOOL)checkInput:(id)sender;
+
+- (void)getErrorToShow:(NSString *)title withMessage:(NSString *)msg andCancelButton:(NSString *)cancel;
 
 @end

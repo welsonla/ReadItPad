@@ -53,6 +53,10 @@
 
 #pragma mark - View lifecycle
 
+- (void)viewWillAppear:(BOOL)animated{
+    [self.navigationController.navigationBar setHidden:YES];
+}
+
 - (void)dealloc{
     [username release];
     [password release];
@@ -63,7 +67,7 @@
 - (void)viewDidLoad
 {
     
-    [self.view setBackgroundColor:[UIColor grayColor]];
+    [self.view setBackgroundColor:[UIColor colorWithRed:56.0f/255.0f green:169.0f/255.0f blue:195.0f/255.0f alpha:1.0f]];
     
     
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(300, 150, 250, 40)];
@@ -79,6 +83,7 @@
     [username setBackgroundColor:[UIColor whiteColor]];
     [username setFont:[UIFont systemFontOfSize:18]];
     [username setPlaceholder:@"ReadItLater Username"];
+    [username setDelegate:self];
     [username setTextAlignment:UITextAlignmentLeft];
     [username setCenter:CGPointMake(512, 200)];
     [username.placeholder setAccessibilityFrame:CGRectMake(10, 10, 150, 30)];
@@ -90,19 +95,12 @@
     [password.layer setCornerRadius:5];
     [password setBackgroundColor:[UIColor whiteColor]];
     [password setPlaceholder:@"Password"];
+    [password setDelegate:self];
     [password setFont:[UIFont systemFontOfSize:18]];
     [password setTextAlignment:UITextAlignmentLeft];
     [password setCenter:CGPointMake(512, 250)];
     [password setSecureTextEntry:YES];
     [self.view addSubview:password];
-    
-    UIButton *loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [loginButton setFrame:CGRectMake(300, 300, 250, 40)];
-    [loginButton setBackgroundColor:[UIColor purpleColor]];
-    [loginButton setTitle:@"Login" forState:UIControlStateNormal];
-    [loginButton setCenter:CGPointMake(512, 300)];
-    [loginButton.layer setCornerRadius:5];
-    [self.view addSubview:loginButton];
     
     
     UIActivityIndicatorView *tempActivityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -110,10 +108,7 @@
     self.activityView = tempActivityView;
     [self.view addSubview:self.activityView];
     [tempActivityView release];
-    
-    [loginButton addTarget:self action:@selector(doLogin:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
+      
     
     [super viewDidLoad];
 }
@@ -130,34 +125,60 @@
     return (interfaceOrientation == UIInterfaceOrientationLandscapeRight)||(interfaceOrientation == UIInterfaceOrientationLandscapeLeft);
 }
 
+
+#pragma mark -
+#pragma mark TextField delegate methods
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    if(![self checkInput:textField]){
+        return NO;
+    }
+    
+    [self startAnimation];
+
+    
+    [ReadItLater authWithUsername:username.text password:password.text delegate:self];
+    
+    [username resignFirstResponder];
+    [password resignFirstResponder];
+    return YES;
+}
+
+
+#pragma mark -
+#pragma mark Animation methods
+
+- (void)startAnimation{
+    HUB = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    HUB.mode = MBProgressHUDAnimationZoom;
+    HUB.labelText = @"Loading";
+}
+
+- (void)stopAnimation{
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    });
+}
+
+- (void)getErrorToShow:(NSString *)title withMessage:(NSString *)msg andCancelButton:(NSString *)cancel{
+    title = (title==nil)?@"":title;
+    cancel = (cancel==nil)?@"OK":cancel;
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:msg delegate:nil cancelButtonTitle:cancel otherButtonTitles:nil, nil];
+    [alert show];
+    [alert release];
+}
+
 #pragma mark -
 #pragma mark do login methods
 
 - (void)doLogin:(id)sender{
-    if(![self checkInput:sender]){
-        return;
-    }
-    
-    HUB = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    HUB.mode = MBProgressHUDAnimationZoom;
-    HUB.labelText = @"Loading";
-    
-    [ReadItLater authWithUsername:username.text password:password.text delegate:self];
+   
 }
 
 - (BOOL)checkInput:(id)sender{
     if(username.text.length==0||password.text.length==0){
         
-        
-        
-        UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                        message:@"Username or Password mustn't be empty"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil, nil];
-        
-        [alter show];
-        [alter release];
+        [self getErrorToShow:nil withMessage:@"username or Password mustn't be empty" andCancelButton:@"OK"];
         return NO;
     }
     
@@ -167,12 +188,7 @@
 - (void)readItLaterLoginFinished:(NSString *)stringResponse error:(NSString *)errorString{
     
     if ([stringResponse rangeOfString:@"200"].location != NSNotFound) {
-        
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        });
-        
+        //验证成功
         [ReadItLater saveUserData:username.text andPassword:password.text];
         ReadListViewController *listController = [[ReadListViewController alloc] initWithNibName:nil bundle:nil];
         
@@ -181,17 +197,20 @@
         [listController release];
         
     }else if([stringResponse rangeOfString:@"401"].location != NSNotFound){
-        
-        NSLog(@"Username and password do not match account");
+        //密码错误
+        [self getErrorToShow:nil withMessage:@"Username and password do not match account" andCancelButton:@"OK"];
+        [password becomeFirstResponder];
         
     }else{
-        
+        //未知错误
         NSLog(@"error");
         
     }
-    
-    [activityView stopAnimating];
+    [self stopAnimation];
+
 }
+
+
 
 
 - (void)readItLaterSignupFinished:(NSString *)stringResponse error:(NSString *)errorString{
