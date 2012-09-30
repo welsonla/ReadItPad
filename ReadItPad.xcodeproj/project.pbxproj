@@ -48,6 +48,7 @@
 		0ED0AF841552939900D6A66D /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED0AF831552939900D6A66D /* libicucore.dylib */; };
 		0EDA6B91155B8C70003F6820 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA6B90155B8C70003F6820 /* MBProgressHUD.m */; };
 		0EDA6B92155B8C70003F6820 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA6B90155B8C70003F6820 /* MBProgressHUD.m */; };
+		2C119F881617DA5F00DE71DC /* ReadListObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C119F871617DA5F00DE71DC /* ReadListObject.m */; };
 		2CF21CCB1599FBB200BD4A82 /* ReadDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF21CCA1599FBB200BD4A82 /* ReadDetailViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -110,6 +111,8 @@
 		0ED0AF831552939900D6A66D /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		0EDA6B8F155B8C70003F6820 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		0EDA6B90155B8C70003F6820 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		2C119F861617DA5F00DE71DC /* ReadListObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadListObject.h; sourceTree = "<group>"; };
+		2C119F871617DA5F00DE71DC /* ReadListObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadListObject.m; sourceTree = "<group>"; };
 		2CF21CC91599FBB200BD4A82 /* ReadDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadDetailViewController.h; sourceTree = "<group>"; };
 		2CF21CCA1599FBB200BD4A82 /* ReadDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -232,6 +235,8 @@
 				0E6BCA6115525AFD00EE8657 /* ReadItLaterLite.m */,
 				0E89A38E15577CF200EFB650 /* ReadItLaterAddition.h */,
 				0E89A38F15577CF200EFB650 /* ReadItLaterAddition.m */,
+				2C119F861617DA5F00DE71DC /* ReadListObject.h */,
+				2C119F871617DA5F00DE71DC /* ReadListObject.m */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -401,6 +406,7 @@
 				0E6EBDB215592679008A4B7C /* FMResultSet.m in Sources */,
 				0EDA6B91155B8C70003F6820 /* MBProgressHUD.m in Sources */,
 				2CF21CCB1599FBB200BD4A82 /* ReadDetailViewController.m in Sources */,
+				2C119F881617DA5F00DE71DC /* ReadListObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
