@@ -16,6 +16,8 @@
 
 @synthesize webView;
 
+@synthesize HUB;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -27,19 +29,19 @@
 
 - (void)viewDidLoad
 {
-    
-    [self.view setBackgroundColor:[UIColor yellowColor]];
-    
-    webView = [[UIWebView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
+    [self.view setFrame:CGRectMake(0, 0, 1024, 768)];
+
+    webView = [[UIWebView alloc] initWithFrame:CGRectMake(0,0, 1024, 708)];
+    [webView setBackgroundColor:[UIColor yellowColor]];
     webView.scalesPageToFit = YES;
     webView.delegate = self;
-    [webView setBackgroundColor:[UIColor greenColor]];
     [self.view addSubview:webView];
     [super viewDidLoad];
 }
 
+
+//Load the content  to the web view
 - (void)loadWebPageWithString:(NSString *)str{
-    NSLog(@"urlString-------%@",str);
     NSURL *url  = [NSURL URLWithString:str];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [webView loadRequest:request];
@@ -51,12 +53,20 @@
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView{
+    
+    HUB = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    HUB.mode = MBProgressHUDModeAnnularDeterminate;
+    HUB.labelText = @"Loading";
+
     NSLog(@"Start");
 }
 
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
-    NSLog(@"Finished");
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    });
 }
 - (void)viewDidUnload
 {

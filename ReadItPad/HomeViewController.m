@@ -123,14 +123,11 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationLandscapeRight);
+    return (interfaceOrientation == UIInterfaceOrientationLandscapeRight)||(interfaceOrientation == UIInterfaceOrientationLandscapeLeft);
 }
 
 #pragma mark -
@@ -142,7 +139,7 @@
     }
     
     HUB = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    HUB.mode = MBProgressHUDModeAnnularDeterminate;
+    HUB.mode = MBProgressHUDAnimationZoom;
     HUB.labelText = @"Loading";
     
     [ReadItLater authWithUsername:username.text password:password.text delegate:self];

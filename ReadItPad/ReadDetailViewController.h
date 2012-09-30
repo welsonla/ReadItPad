@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBProgressHUD.h"
 
 @interface ReadDetailViewController : UIViewController<UIWebViewDelegate>{
     UIWebView *webView;
+    MBProgressHUD *HUB;
 }
 
 @property(nonatomic,retain) UIWebView *webView;
-
+@property(nonatomic,retain) MBProgressHUD *HUB;
 
 - (void)loadWebPageWithString:(NSString *)str;
 

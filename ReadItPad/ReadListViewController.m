@@ -73,13 +73,15 @@
 //        "title": "\u91cd\u6784\uff1a\u4ee3\u7801\u5f02\u5473",
 //        "url": "http://www.google.com"
 //    }
+    
     NSDictionary *readDict = [readListArray objectAtIndex:indexPath.row];
     ReadListObject *readObject = [[ReadListObject alloc] init];
     readObject = [readObject convertToReadObject:readDict];
    
     readDetailController  = [[ReadDetailViewController alloc] initWithNibName:nil bundle:nil];
-    [readDetailController loadWebPageWithString:readObject.url];
+       [readDetailController setTitle:readObject.title];
     [self.navigationController pushViewController:readDetailController animated:YES];
+    [readDetailController loadWebPageWithString:readObject.url];
 }
 
 
@@ -88,8 +90,6 @@
 - (void)viewDidLoad
 {
     [ReadItLater getReadList:self];
-    
-//    readListArray = [[NSMutableArray alloc] init];
     
     self.title = @"Reading List";
     readTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768) style:UITableViewStylePlain];
